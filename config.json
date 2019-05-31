@@ -1,0 +1,47 @@
+{
+    "name": "aevb",
+    "n_gpu": 1,
+
+    "arch": {
+        "type": "VAE",
+        "args": {"input_size": 64, "hidden_dim": 64}
+    },
+    "data_loader": {
+        "type": "AnimeFaceDataLoader",
+        "args":{
+            "data_dir": "/media/ycy/86A4D88BA4D87F5D/DataSet/animation/",
+            "batch_size": 128,
+            "resize": 64,
+            "shuffle": true,
+            "num_workers": 2
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.0003
+        }
+    },
+    "loss": "AEVB",
+    "metrics": [
+        "kl_div", "reconstruct"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 10,
+            "gamma": 0.5
+        }
+    },
+    "trainer": {
+        "epochs": 25,
+        "save_dir": "/media/ycy/86A4D88BA4D87F5D/DataSet/anivae_saved/",
+        "save_period": 5,
+        "verbosity": 2,
+        "monitor": "off",
+        "early_stop": 0,
+
+        "tensorboardX": true,
+        "sample_size": 1
+    }
+}
