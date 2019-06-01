@@ -1,0 +1,47 @@
+{
+    "name": "MNIST",
+    "n_gpu": 1,
+
+    "arch": {
+        "type": "MNIST_VAE",
+        "args": {}
+    },
+    "data_loader": {
+        "type": "MnistDataLoader",
+        "args":{
+            "data_dir": "mnist_data/",
+            "batch_size": 64,
+            "shuffle": true,
+            "validation_split": 0.1,
+            "num_workers": 1
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.001
+        }
+    },
+    "loss": "WiSE_UB2",
+    "metrics": [
+        "kl_div", "reconstruct"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 60,
+            "gamma": 0.5
+        }
+    },
+    "trainer": {
+        "epochs": 30,
+        "save_dir": "mnist_saved/",
+        "save_period": 10,
+        "verbosity": 2,
+        "monitor": "off",
+        "early_stop": 0,
+
+        "tensorboardX": true,
+        "sample_size": 3
+    }
+}
